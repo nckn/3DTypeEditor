@@ -28,11 +28,10 @@
         .slider-group(v-for="(sl, index) in row.stepsliders" :key="`stsl-${index}`")
           .labels
             p.text {{ sl.name }}
-            //- label.text {{ sl.value }}
-            label.text {{ sl.types[sl.value].name }}
+            label.text {{ sl.value }}
           .labels
-            //- label.text.step-slider-label(v-for="(f, index) in sl.types" v-bind:class="f") {{ index }}
-            .step-slider-label(v-for="(f, index) in sl.types" v-bind:class="f.name")
+            //- label.text.step-slider-label(v-for="(f, index) in sl.fonts" v-bind:class="f") {{ index }}
+            .step-slider-label(v-for="(f, index) in sl.fonts" v-bind:class="f")
             //- label.text {{ sl.value }}
           input.slider(
             :name='sl.name'
@@ -53,7 +52,7 @@
 
 export default {
   name: 'Controls',
-  props: ['settings', 'event', 'revealed', 'class_name'],
+  props: ['settings', 'event', 'revealed'],
   data () {
     return {
       sliderVal: 0,
@@ -70,19 +69,16 @@ export default {
   },
   methods: {
     changeVal(e) {
-      var self = this
       var target = e.target || e.srcElement
       var name = target.getAttribute('name')
       var type = target.getAttribute('type')
       var ob = {name: name, value: target.value}
       // Check if checkbox
-      console.log('receiving ', name)
-      console.log('parent ', self.$parent)
-      console.log('ob ', ob)
+      console.log('receiving ')
       if (type === 'checkbox') {
         console.log('is checkbox')
       }
-      self.$parent.changeVal(ob)
+      this.$parent.changeVal(ob)
       // var self = this
     },
     triggerMenu(e) {
@@ -131,36 +127,30 @@ $s-thumb: 12px;
   background-position: center;
 }
 
-.wrapper {
-  position: absolute;
-  // top: 64px;
-  top: 2px;
-  width: auto;
-  height: auto;
-  right: 2px;
-}
-
 .step-slider-label {
   width: 16px;
   height: 16px;
-  &.easeInOut {
-    @include setBackground('/svg/easetype/icon-easetype-easeinout.svg');
+  &.impact {
+    @include setBackground('/svg/icons/font-icons/icon-letter-impact.svg');
   }
-  &.expoOut {
-    @include setBackground('/svg/easetype/icon-easetype-expoeaseout.svg');
+  &.deathstar {
+    @include setBackground('/svg/icons/font-icons/icon-letter-deathstar.svg');
   }
-  &.backOut {
-    @include setBackground('/svg/easetype/icon-easetype-backeaseout.svg');
+  &.outrun {
+    @include setBackground('/svg/icons/font-icons/icon-letter-outrun.svg');
   }
-  &.Elastic {
-    @include setBackground('/svg/easetype/icon-easetype-elasticeaseout.svg');
+  &.helvetiker {
+    @include setBackground('/svg/icons/font-icons/icon-letter-helvetiker.svg');
+  }
+  &.optimer {
+    @include setBackground('/svg/icons/font-icons/icon-letter-optimer.svg');
   }
 }
 
 .trigger {
   width: 24px;
   height: 24px;
-  background: url(/svg/icon-settings-white.svg) no-repeat;
+  background: url(/svg/icons/icon-settings-white.svg) no-repeat;
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -171,7 +161,7 @@ $s-thumb: 12px;
   transition: all 0.35s ease-in;
   cursor: pointer;
   &:hover {
-    background: rgba(40,40,40,1) url(/svg/icon-settings-white.svg) no-repeat;
+    background: rgba(40,40,40,1) url(/svg/icons/icon-settings-white.svg) no-repeat;
   }
 }
 
@@ -185,7 +175,6 @@ $s-ctls: 200px;
   // height: 200px;
   position: absolute;
   top: 2px;
-  // top: 48px;
   right: 2px;
   padding: $padding-lg;
   background: #232323; // #111

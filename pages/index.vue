@@ -47,17 +47,19 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 import { PixelShader } from 'three/examples/jsm/shaders/PixelShader.js'
 
+// import MenuOptions from '~/components/gui/MenuOptions'
 import MenuOptions from '@/components/gui/MenuOptions'
 import Controls from '@/components/gui/Controls'
 import { map } from '@/assets/js/helpers'
 
 import QuickSearch from '@/components/gui/QuickSearch'
+import QuickOptions from '@/components/gui/QuickOptions'
 
 import globalFunctions from '@/mixins/globalFunctions.js'
 import { Vector2 } from 'three';
 
-const vertexShader = require('@/assets/js/shaders/unreal-bloom/vertexShader.glsl')
-const fragmentShader = require('@/assets/js/shaders/unreal-bloom/fragmentShader.glsl')
+const vertexShader = require('@/assets/js/shaders/vertexShader.glsl')
+const fragmentShader = require('@/assets/js/shaders/fragmentShader.glsl')
 
 const TEXTURE_PATH = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/123879/';
 
@@ -69,8 +71,8 @@ const TEXTURE_PATH = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/123879/';
 
 // const panoImage = require('@/assets/images/pano.jpg')
 var envTextures = [
-  require('@/assets/images/environment-textures-opposite-sunrise.jpg'),
-  require('@/assets/images/environment-textures-condensed-bands-1.jpg'),
+  require('static/textures/environment-textures-opposite-sunrise.jpg'),
+  require('static/textures/environment-textures-condensed-bands-1.jpg'),
 ]
 // const panoImage = require('@/assets/images/environment-textures-opposite-sunrise.jpg')
 
@@ -290,7 +292,8 @@ export default {
   components: {
     MenuOptions,
     Controls,
-    QuickSearch
+    QuickSearch,
+    QuickOptions
   },
   mounted () {
     var self = this
@@ -353,18 +356,18 @@ export default {
     setTimeout(() => {
       self.init()
       self.animate()
-    }, 200)
+    }, 1000)
   },
   beforeDestroy () {
-    var self = this
-    console.log('before destroy')
-    window.cancelAnimationFrame( self.reqAnim );
-    // Dispose controls
-    self.controls.dispose()
-    while(self.scene.children.length > 0){
-      console.log('before destroying: ', self.scene.children[0])
-      self.scene.remove(self.scene.children[0]);
-    }
+    // var self = this
+    // console.log('before destroy')
+    // window.cancelAnimationFrame( self.reqAnim );
+    // // Dispose controls
+    // self.controls.dispose()
+    // while(self.scene.children.length > 0){
+    //   console.log('before destroying: ', self.scene.children[0])
+    //   self.scene.remove(self.scene.children[0]);
+    // }
   },
   methods: {
     changeVal(ob) {
@@ -731,7 +734,7 @@ export default {
       // Setup the reflection
       self.setupReflectionCamera();
 
-      // var pointLight = new self.$gThree.PointLight(0xffffff, 1.5)
+      // var pointLight = new THREE.PointLight(0xffffff, 1.5)
       // pointLight.position.set(0, 100, 90)
       // self.scene.add(pointLight)
 
@@ -765,11 +768,11 @@ export default {
       }
 
       self.materials = [
-        new self.$gThree.MeshPhongMaterial({ color: 0xa0a0a0, flatShading: true }), // front
-        new self.$gThree.MeshPhongMaterial({ color: 0xa0a0a0 }) // side
+        new THREE.MeshPhongMaterial({ color: 0xa0a0a0, flatShading: true }), // front
+        new THREE.MeshPhongMaterial({ color: 0xa0a0a0 }) // side
       ];
 
-      self.group = new self.$gThree.Group()
+      self.group = new THREE.Group()
       self.group.position.y = 0
 
       self.scene.add(self.group)
@@ -777,16 +780,16 @@ export default {
       self.loadFont()
 
       // Org transparent floor
-      // var plane = new self.$gThree.Mesh(
-      //   new self.$gThree.PlaneBufferGeometry(10000, 10000),
-      //   new self.$gThree.MeshBasicMaterial({ color: 0x000000, opacity: 0.9, transparent: true })
+      // var plane = new THREE.Mesh(
+      //   new THREE.PlaneBufferGeometry(10000, 10000),
+      //   new THREE.MeshBasicMaterial({ color: 0x000000, opacity: 0.9, transparent: true })
       // );
       // plane.position.y = 100;
       // plane.rotation.x = - Math.PI / 2;
       // self.scene.add(plane);
 
       // RENDERER
-      // renderer = new self.$gThree.WebGLRenderer({ antialias: true });
+      // renderer = new THREE.WebGLRenderer({ antialias: true });
       // renderer.setPixelRatio(window.devicePixelRatio);
       // renderer.setSize(window.innerWidth, window.innerHeight);
       // container.appendChild(renderer.domElement);
@@ -1139,7 +1142,7 @@ export default {
     createText() {
       var self = this
       self.text = text
-      self.textGeo = new self.$gThree.TextBufferGeometry(text, {
+      self.textGeo = new THREE.TextBufferGeometry(text, {
         font: font,
         size: size,
         height: height,
@@ -1152,7 +1155,7 @@ export default {
       self.textGeo.computeBoundingBox()
       self.textGeo.computeVertexNormals()
 
-      var triangle = new self.$gThree.Triangle()
+      var triangle = new THREE.Triangle()
 
       // "fix" side normals by removing z-component of normals for side faces
       // (this doesn't work well for beveled geometry as then we lose nice curvature around z-axis)
@@ -1181,12 +1184,12 @@ export default {
 
       var centerOffset = - 0.5 * (self.textGeo.boundingBox.max.x - self.textGeo.boundingBox.min.x);
 
-      // self.textGeo = new self.$gThree.BufferGeometry().fromGeometry(self.textGeo);
+      // self.textGeo = new THREE.BufferGeometry().fromGeometry(self.textGeo);
 
       var mat = new THREE.MeshBasicMaterial( { envMap: self.sphere1Camera.renderTarget.texture } )
       var mat2 = new THREE.MeshBasicMaterial( { envMap: self.sphere1Camera.renderTarget.texture, opacity: 0.25 } )
-      // self.textMesh1 = new self.$gThree.Mesh(self.textGeo, self.materials);
-      self.textMesh1 = new self.$gThree.Mesh(self.textGeo, self.reflection ? mat : self.materials);
+      // self.textMesh1 = new THREE.Mesh(self.textGeo, self.materials);
+      self.textMesh1 = new THREE.Mesh(self.textGeo, self.reflection ? mat : self.materials);
       
       self.textMesh1.receiveShadow = true
 
@@ -1199,8 +1202,8 @@ export default {
       self.group.add(self.textMesh1)
 
       if (self.mirror) {
-        // self.textMesh2 = new self.$gThree.Mesh(self.textGeo, mat2)
-        self.textMesh2 = new self.$gThree.Mesh(self.textGeo, self.reflection ? mat2 : self.materials)
+        // self.textMesh2 = new THREE.Mesh(self.textGeo, mat2)
+        self.textMesh2 = new THREE.Mesh(self.textGeo, self.reflection ? mat2 : self.materials)
         self.textMesh2.position.x = centerOffset
         self.textMesh2.position.y = - hover
         // self.textMesh2.position.z = height

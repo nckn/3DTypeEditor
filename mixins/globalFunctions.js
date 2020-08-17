@@ -1,5 +1,32 @@
 export default {
   methods: {
+    assignDoubleTap(bool) {
+      // Quick menu related - start
+      var timeout;
+      var lastTap = 0
+      var isTouch = (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))
+      var mouseDown = isTouch ? 'touchstart' : 'mousedown'
+
+      document.addEventListener(mouseDown, function(event) {
+        var currentTime = new Date().getTime()
+        var tapLength = currentTime - lastTap
+        clearTimeout(timeout)
+        if (tapLength < 500 && tapLength > 0) {
+          // elm2.innerHTML = 'Double Tap'
+          event.preventDefault()
+          return bool
+        } else {
+          // elm2.innerHTML = 'Single Tap';
+          timeout = setTimeout(function() {
+            // elm2.innerHTML = 'Single Tap (timeout)'
+            clearTimeout(timeout)
+          }, 500)
+        }
+        lastTap = currentTime
+      })
+      // return 
+      // Quick menu related - start
+    },
     // For threejs
     radians (degrees) {
       return degrees * Math.PI / 180;
@@ -14,12 +41,18 @@ export default {
     checkIfLarge: function (breakp) {
       return breakp < window.innerWidth
     },
+    ifSmall: function () {
+      return 576 > window.innerWidth
+    },
     offset(el) {
       var rect = el.getBoundingClientRect()
       // console.log(el)
       var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft
       var scrollTop = window.pageYOffset || document.documentElement.scrollTop
       return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+    },
+    randomColor () {
+      return '#' + Math.floor(Math.random()*16777215).toString(16)
     },
     log: function (msg) {
       // return
@@ -36,16 +69,36 @@ export default {
       e.returnValue = false
       return false
     },
+    checkIfTouch(e) {
+      var thisX, thisY
+      if (e.touches != undefined) {
+        thisX = e.touches[0].pageX
+        thisY = e.touches[0].pageY
+      }
+      else {
+        thisX = e.clientX
+        thisY = e.clientY
+      }
+      return { x: thisX, y: thisY }
+    },
     logObject (obj) {
       var output = ''
       var object = obj
       for (var property in object) {
         output += property + ': ' + object[property] + '; '
       }
+      console.log('object')
       return output
     },
     mapValue (value, start1, stop1, start2, stop2) {
       return (value - start1) / (stop1 - start1) * (stop2 - start2) + start2
+    },
+    getKeyByValue(nameKey, myArray){
+      for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].name === nameKey) {
+          return myArray[i]
+        }
+      }
     },
     distance (x1, y1, x2, y2) {
       return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2))

@@ -58,6 +58,14 @@ module.exports = {
   build: {
     // publicPath: '/static/',
     extend (config, { isDev, isClient }) {
+      config.module.rules.push({
+        test: /\.(glsl|vs|fs|vert|frag)$/,
+        exclude: /node_modules/,
+        use: [
+          'raw-loader',
+          'glslify-loader'
+        ]
+      })
       if (!isDev) {
         // relative links, please.
         config.output.publicPath = './_nuxt/'
@@ -71,5 +79,5 @@ module.exports = {
     //     'primary-color':                '#479ff1'
     //   }
     // }
-  }
+  },
 }
