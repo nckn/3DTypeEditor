@@ -1,0 +1,25 @@
+$font_path: '/fonts/';
+
+// Base
+
+@font-face {
+  font-family: "NeueRegular";
+  src: url($font_path + "NeueMontreal-Regular.otf");
+}
+
+@font-face {
+  font-family: "NeueBold";
+  src: url($font_path + "NeueMontreal-Bold.otf");
+}
+
+@font-face {
+  font-family: "ProximaNovaReg";
+  src: url($font_path + 'ProximaNova/Regular/proximanova-regular-webfont.eot');
+  src: url($font_path + 'ProximaNova/Regular/proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url($font_path + 'ProximaNova/Regular/proximanova-regular-webfont.woff2') format('woff2'),
+        url($font_path + 'ProximaNova/Regular/proximanova-regular-webfont.woff') format('woff'),
+        url($font_path + 'ProximaNova/Regular/proximanova-regular-webfont.ttf') format('truetype'),
+        url($font_path + 'ProximaNova/Regular/proximanova-regular-webfont.svg#proxima_novaregular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+}

@@ -1,0 +1,31 @@
+<svg width="160px" height="160px" viewBox="0 0 160 160">
+  <defs>
+    <g id="lines" style="stroke: black;">
+      <line x1=" 71" x2=" 79" />
+      <line x1="-71" x2="-79" />
+      <line y1=" 71" y2=" 79" />
+      <line y1="-71" y2="-79" />
+    </g>
+  </defs>
+  <g id="background"><rect x="0.23" y="0.23" width="1024" height="1024"/>
+  <g transform="translate(80 80)">
+    <use xlink:href="#lines" transform="rotate( 0)"/>
+    <use xlink:href="#lines" transform="rotate( 5)"/>
+    <use xlink:href="#lines" transform="rotate(10)"/>
+    <use xlink:href="#lines" transform="rotate(15)"/>
+    <use xlink:href="#lines" transform="rotate(20)"/>
+    <use xlink:href="#lines" transform="rotate(25)"/>
+    <use xlink:href="#lines" transform="rotate(30)"/>
+    <use xlink:href="#lines" transform="rotate(35)"/>
+    <use xlink:href="#lines" transform="rotate(40)"/>
+    <use xlink:href="#lines" transform="rotate(45)"/>
+    <use xlink:href="#lines" transform="rotate(50)"/>
+    <use xlink:href="#lines" transform="rotate(55)"/>
+    <use xlink:href="#lines" transform="rotate(60)"/>
+    <use xlink:href="#lines" transform="rotate(65)"/>
+    <use xlink:href="#lines" transform="rotate(70)"/>
+    <use xlink:href="#lines" transform="rotate(75)"/>
+    <use xlink:href="#lines" transform="rotate(80)"/>
+    <use xlink:href="#lines" transform="rotate(85)"/>
+  </g>
+</svg>
