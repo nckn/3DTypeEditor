@@ -349,17 +349,17 @@ set-background($path)
       left 5%
       z-index 1
       &.transforms
-        set-background('/svg/icons/icon-transforms-white.svg')
+        set-background('/icons/icon-transforms-white.svg')
       &.camerapos
-        set-background('/svg/icons/icon-camera-white.svg')
+        set-background('/icons/icon-camera-white.svg')
       &.space 
-        set-background('/svg/icons/icon-space-world.svg')
+        set-background('/icons/icon-space-world.svg')
         &.otherstate
-          set-background('/svg/icons/icon-space-local.svg')
+          set-background('/icons/icon-space-local.svg')
       &.snap
-        set-background('/svg/icons/icon-snap-on.svg')
+        set-background('/icons/icon-snap-on.svg')
         &.otherstate
-          set-background('/svg/icons/icon-snap-off.svg') 
+          set-background('/icons/icon-snap-off.svg') 
       transform rotate(-90deg) rotate(calc(var(--degrees) * -1deg))
       // transform-origin 50% 100%
     // If .submenu-wrapper is not present
@@ -434,32 +434,32 @@ set-background($path)
 .submenu-option
   &.camerapos
     &.front
-      background url('/svg/icons/icon-camera-front.svg') no-repeat
+      background url('/icons/icon-camera-front.svg') no-repeat
     &.top
-      background url('/svg/icons/icon-camera-top.svg') no-repeat
+      background url('/icons/icon-camera-top.svg') no-repeat
     &.right
-      background url('/svg/icons/icon-camera-left.svg') no-repeat
+      background url('/icons/icon-camera-left.svg') no-repeat
   &.viewhandles
     &.handlex
-      background url('/svg/icons/icon-camera-front.svg') no-repeat
+      background url('/icons/icon-camera-front.svg') no-repeat
     &.handley
-      background url('/svg/icons/icon-camera-top.svg') no-repeat
+      background url('/icons/icon-camera-top.svg') no-repeat
     &.handlez
-      background url('/svg/icons/icon-camera-left.svg') no-repeat
+      background url('/icons/icon-camera-left.svg') no-repeat
   &.transforms
     &.translate
-      background url('/svg/icons/icon-transforms-translate.svg') no-repeat
+      background url('/icons/icon-transforms-translate.svg') no-repeat
     &.rotate
-      background url('/svg/icons/icon-transforms-rotate.svg') no-repeat
+      background url('/icons/icon-transforms-rotate.svg') no-repeat
     &.scale
-      background url('/svg/icons/icon-transforms-scale.svg') no-repeat
+      background url('/icons/icon-transforms-scale.svg') no-repeat
   // &.space
   //   &.translate
-  //     background url('/svg/icons/icon-transforms-translate.svg') no-repeat
+  //     background url('/icons/icon-transforms-translate.svg') no-repeat
   //   &.rotate
-  //     background url('/svg/icons/icon-transforms-rotate.svg') no-repeat
+  //     background url('/icons/icon-transforms-rotate.svg') no-repeat
   //   &.scale
-  //     background url('/svg/icons/icon-transforms-scale.svg') no-repeat
+  //     background url('/icons/icon-transforms-scale.svg') no-repeat
 </style>
 
 

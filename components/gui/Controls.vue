@@ -131,26 +131,26 @@ $s-thumb: 12px;
   width: 16px;
   height: 16px;
   &.impact {
-    @include setBackground('/svg/icons/font-icons/icon-letter-impact.svg');
+    @include setBackground('/icons/font-icons/icon-letter-impact.svg');
   }
   &.deathstar {
-    @include setBackground('/svg/icons/font-icons/icon-letter-deathstar.svg');
+    @include setBackground('/icons/font-icons/icon-letter-deathstar.svg');
   }
   &.outrun {
-    @include setBackground('/svg/icons/font-icons/icon-letter-outrun.svg');
+    @include setBackground('/icons/font-icons/icon-letter-outrun.svg');
   }
   &.helvetiker {
-    @include setBackground('/svg/icons/font-icons/icon-letter-helvetiker.svg');
+    @include setBackground('/icons/font-icons/icon-letter-helvetiker.svg');
   }
   &.optimer {
-    @include setBackground('/svg/icons/font-icons/icon-letter-optimer.svg');
+    @include setBackground('/icons/font-icons/icon-letter-optimer.svg');
   }
 }
 
 .trigger {
   width: 24px;
   height: 24px;
-  background: url(/svg/icons/icon-settings-white.svg) no-repeat;
+  background: url(/icons/icon-settings-white.svg) no-repeat;
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -161,7 +161,7 @@ $s-thumb: 12px;
   transition: all 0.35s ease-in;
   cursor: pointer;
   &:hover {
-    background: rgba(40,40,40,1) url(/svg/icons/icon-settings-white.svg) no-repeat;
+    background: rgba(40,40,40,1) url(/icons/icon-settings-white.svg) no-repeat;
   }
 }
 

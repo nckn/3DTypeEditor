@@ -188,9 +188,9 @@ export default {
       },
       // Quick options
       quickOptions: [
-        {name: 'front', path: '/svg/icons/icon-camera-front.svg'},
-        {name: 'top', path: '/svg/icons/icon-camera-top.svg'},
-        {name: 'angle', path: '/svg/icons/icon-camera-top.svg'},
+        {name: 'front', path: '/icons/icon-camera-front.svg'},
+        {name: 'top', path: '/icons/icon-camera-top.svg'},
+        {name: 'angle', path: '/icons/icon-camera-top.svg'},
         // {name: 'snap', path: '/svg/icons/icon-snap-on.svg'},
       ],
       // MenuOptions
