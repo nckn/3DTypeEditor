@@ -4,7 +4,7 @@
     MenuOptions(:type="'top-left'" :options="guiControls" :closer="container")
     Controls(:settings="settings" :event="'click'" :revealed="true")
     QuickOptions(:type="'top-left'" :options="quickOptions")
-    QuickSearch(:type="'top-left'" :settings="quickSearch" :options="quickOptions")
+    //- QuickSearch(:type="'top-left'" :settings="quickSearch" :options="quickOptions")
     .preview-container(v-bind:class="{ available: revealSnapper }")
       .btn.icon.camera-trigger(@click="takeScreenshot" name="screenshot-trigger" v-bind:class="{ closeagain: revealSnapper }")
       .hidden-gui
