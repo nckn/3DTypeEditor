@@ -1,0 +1,31 @@
+$ease-time: 0.2s;
+
+@mixin makeBackground($url, $size) {
+  background: url($url) no-repeat;
+  background-size: $size $size;
+  background-position: center;
+}
+
+.btn {
+  &.icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all $ease-time ease-in;
+    opacity: 0.75;
+    &.camera-trigger {
+      @include makeBackground('/icons/icon-camera-screenshot.svg', 24px);
+    }
+    &.download {
+      @include makeBackground('/icons/icon-download.svg', 24px);
+    }
+    &.closeagain {
+      @include makeBackground('/icons/icon-close.svg', 24px);
+    }
+    &:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+  }
+}
