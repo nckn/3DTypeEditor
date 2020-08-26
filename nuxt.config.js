@@ -52,7 +52,8 @@ module.exports = {
     // base,
   },
   plugins: [
-    { src: '~/plugins/splitTextPlugin.js', ssr: false }
+    { src: '~/plugins/splitTextPlugin.js', ssr: false },
+    { src: '~/plugins/ga.js', mode: 'client' }, // Google Analytics
     // {src: '~/plugins/vue-kinesis.js', ssr: false}
   ],
   build: {
