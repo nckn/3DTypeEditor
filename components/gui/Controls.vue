@@ -11,19 +11,6 @@
           input.styled-checkbox(:id="`ch-${index}`" type="checkbox" :checked="ch.checked" :name='ch.name' @change="changeVal($event)")
           //- input.styled-checkbox(type="checkbox" :name='ch.name' value="0" @change="changeVal($event)")
           label.text(:for="`ch-${index}`") {{ ch.name }}
-        .slider-group(v-for="(sl, index) in row.sliders" :key="`sl-${index}`")
-          .labels
-            label.text {{ sl.name }}
-            label.text {{ sl.value }}
-          input.slider(
-            :name='sl.name'
-            type='range'
-            :min="sl.min ? sl.min : 0"
-            :max="sl.max ? sl.max : 1"
-            :step="sl.step ? sl.step : 0.01"
-            @input="changeVal"
-            v-model="sl.value"
-          )
         //- A step slider such as the font picker
         .slider-group(v-for="(sl, index) in row.stepsliders" :key="`stsl-${index}`")
           .labels
@@ -46,6 +33,19 @@
             output.output(name='output' for='range')
             //- output.output(name='output' for='range')
             //-   | 50
+        .slider-group(v-for="(sl, index) in row.sliders" :key="`sl-${index}`")
+          .labels
+            label.text {{ sl.name }}
+            label.text {{ sl.value }}
+          input.slider(
+            :name='sl.name'
+            type='range'
+            :min="sl.min ? sl.min : 0"
+            :max="sl.max ? sl.max : 1"
+            :step="sl.step ? sl.step : 0.01"
+            @input="changeVal"
+            v-model="sl.value"
+          )
 </template>
  
 <script>
@@ -208,7 +208,8 @@ $s-ctls: 200px;
       align-items: flex-start;
     }
     .slider-group {
-      margin-bottom: 12px;
+      // margin-bottom: 12px;
+      margin-bottom: 20px;
       * {
         transition: opacity 0.25s ease-out;
         opacity: 0.75;
@@ -224,6 +225,10 @@ $s-ctls: 200px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    p {
+      margin: 0;
+      margin-bottom: 4px;
+    }
   }
   .slider {
     -webkit-appearance: none;

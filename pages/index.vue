@@ -1,7 +1,8 @@
 <template lang="pug">
   .container.outer.black-bg
     #containerTypo(ref="container_typo")
-    MenuOptions(:type="'top-left'" :options="guiControls" :closer="container")
+    HoverInfo(:type="'top-left'" :options="guiControls" :closer="container")
+    //- MenuOptions(:type="'top-left'" :options="guiControls" :closer="container")
     Controls(:settings="settings" :event="'click'" :revealed="true")
     QuickOptions(:type="'top-left'" :options="quickOptions")
     //- QuickSearch(:type="'top-left'" :settings="quickSearch" :options="quickOptions")
@@ -47,7 +48,7 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 import { PixelShader } from 'three/examples/jsm/shaders/PixelShader.js'
 
-// import MenuOptions from '~/components/gui/MenuOptions'
+import HoverInfo from '@/components/gui/HoverInfo'
 import MenuOptions from '@/components/gui/MenuOptions'
 import Controls from '@/components/gui/Controls'
 import { map } from '@/assets/js/helpers'
@@ -69,6 +70,8 @@ const TEXTURE_PATH = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/123879/';
 // const vertexShader = require('@/assets/js/vertexShader.glsl')
 // const fragmentShader = require('@/assets/js/fragmentShader.glsl')
 
+const camOffsetY = 1500
+
 // const panoImage = require('@/assets/images/pano.jpg')
 var envTextures = [
   require('static/textures/environment-textures-opposite-sunrise.jpg'),
@@ -76,7 +79,7 @@ var envTextures = [
 ]
 // const panoImage = require('@/assets/images/environment-textures-opposite-sunrise.jpg')
 
-var text = 'PEACE',
+var text = 'WRITE',
   height = 20,
   zOffset = 0,
   size = 200,
@@ -239,23 +242,23 @@ export default {
       // Slider settings  
       settings: [
         {name: 'Letter depth',
-          sliders: [
-            {name: 'letterdepth', value: 0, min: 0.05, max: 3000, step: 0.01},
-          ],
           stepsliders: [
             {
               name: 'Font', value: 0, min: 0, max: fontList.length - 1, step: 1,
               fonts: fontList
             },
-          ]
+          ],
+          sliders: [
+            {name: 'letterdepth', value: 0, min: 0.05, max: 3000, step: 0.01},
+          ],
         },
         {name: 'FXs',
           checkbox: [
             {name: 'Enable FXs', checked: true},
             {name: 'After image', checked: true},
-            {name: 'Enable Environment', checked: true},
+            // {name: 'Enable Environment', checked: true},
             {name: 'Mirror fonts', checked: true},
-            {name: 'Reflection', checked: true},
+            {name: 'Neon colors', checked: true},
           ]
         },
         {name: 'FXsSliders',
@@ -293,7 +296,8 @@ export default {
     MenuOptions,
     Controls,
     QuickSearch,
-    QuickOptions
+    QuickOptions,
+    HoverInfo
   },
   mounted () {
     var self = this
@@ -403,7 +407,7 @@ export default {
         self.mirror = !self.mirror
         self.refreshText()
       }
-      else if (ob.name === 'Reflection') {
+      else if (ob.name === 'Neon colors') {
         // self.renderComposer = !self.renderComposer
         self.reflection = !self.reflection
         self.refreshText()
@@ -536,6 +540,10 @@ export default {
         ease: self.easingType
       })
     },
+    resetCamera() {
+      var self = this
+      self.camera.position.set( 0, camOffsetY, 1500 )
+    },
     changeCameraPos(angle) {
       var self = this
       switch (angle) {
@@ -551,10 +559,15 @@ export default {
         case 'right':
           self.camera.position.set( 1500, 0, 0 )
           break
+        case 'reset':
+          self.resetCamera();
+          break
       }
       self.camera.lookAt( 0, 0, 0 ) // TODO: look at "active" object
       self.controls.update()
-      self.render()
+      // self.render()
+      // if (angle != 'reset') {
+      // }
       // self.cameraPersp.position.set( 1000, 500, 1000 )
       // self.cameraOrtho.position.set( 1000, 500, 1000 )
     },
@@ -610,9 +623,10 @@ export default {
       // self.createReflectionCube()
       
       // Create a rotation points.
-      self.rotationPoint = new THREE.Object3D();
-      self.rotationPoint.position.set( 0, 0, 0 );
-      self.scene.add(self.rotationPoint);
+      // self.rotationPoint = new THREE.Object3D();
+      // self.rotationPoint.position.set( 0, 0, 0 );
+      // self.scene.add(self.rotationPoint);
+      // self.rotationPoint.lookAt(0,0,0);
       
       // light rotation point.
       self.lightRotationPoint = new THREE.Object3D();
@@ -639,10 +653,11 @@ export default {
       )
       self.cameraOrtho = new THREE.OrthographicCamera( - 600 * self.aspect, 600 * self.aspect, 600, - 600, 0.01, 30000 )
       self.camera = self.cameraPersp
-      self.camera.position.set( 0, 0, 1500 )
-      self.camera.lookAt( 0, 0, 0 )
+      self.resetCamera();
+      self.camera.lookAt( 0, camOffsetY, 0 );
       
-      self.rotationPoint.add( self.camera );
+      // self.rotationPoint.add( self.camera );
+      self.scene.add( self.camera );
 
       // Build the renderer.
       self.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
@@ -655,84 +670,14 @@ export default {
 
       // Setup light
       self.setupLights()
-      
-      // Ambient lights
-      // var ambient = new THREE.AmbientLight( 0xffffff );
-      // self.scene.add( ambient );
 
-      // var sun = new THREE.PointLight(0xffffcc, 1, 6000);
-      // sun.position.set(4000, 1000, -4000);
-      // self.scene.add(sun);
-      
-      // var sun1 = new THREE.PointLight(0xffffcc, 1, 6000);
-      // sun1.position.set(-4000, 1000, -4000);
-      // self.scene.add(sun1);
-      
-      // var sun2 = new THREE.PointLight(0xffffcc, 1, 6000);
-      // sun2.position.set(-4000, 1000, 4000);
-      // self.scene.add(sun2);
-      
-      // var sun3 = new THREE.PointLight(0xffffcc, 1, 6000);
-      // sun3.position.set(4000, 1000, 4000);
-      // self.scene.add(sun3);
-      
-      // var light = new THREE.PointLight(0x7777aa, 1, 1000);
-      // light.position.set(-200, 200, -175);
-      // self.lightRotationPoint.add(light);
-      // var geometryA = new THREE.SphereBufferGeometry( 10, 8, 8 );
-      // var materialA = new THREE.MeshLambertMaterial({
-      //     color: 0x7777aa,
-      //     emissive: 0x7777aa,
-      // });
-      // var lightBallA = new THREE.Mesh(geometryA, materialA);
-      // lightBallA.position.set(-200, 200, -175);
-      // self.lightRotationPoint.add(lightBallA);
-      
-      // var light2 = new THREE.PointLight(0xaa7777, 1, 1000);
-      // light2.position.set(200, 200, -175);
-      // self.lightRotationPoint.add(light2);
-      // var geometryB = new THREE.SphereBufferGeometry( 10, 8, 8 );
-      // var materialB = new THREE.MeshLambertMaterial({
-      //     color: 0xaa7777,
-      //     emissive: 0xaa7777,
-      // });
-      // var lightBallB = new THREE.Mesh(geometryB, materialB);
-      // lightBallB.position.set(200, 200, -175);
-      // self.lightRotationPoint.add(lightBallB);
-    
-      // var light3 = new THREE.PointLight(0xaaaaaa, 1, 1000);
-      // light3.position.set(200, 200, 175);
-      // self.lightRotationPoint.add(light3);
-      // var geometryC = new THREE.SphereBufferGeometry( 10, 8, 8 );
-      // var materialC = new THREE.MeshLambertMaterial({
-      //     color: 0xaaaaaa,
-      //     emissive: 0xaaaaaa,
-      // });
-      // var lightBallC = new THREE.Mesh(geometryC, materialC);
-      // lightBallC.position.set(200, 200, 175);
-      // self.lightRotationPoint.add(lightBallC);
-      
-      // var light4 = new THREE.PointLight(0x77aa77, 1, 1000);
-      // light4.position.set(-200, 200, 175);
-      // self.lightRotationPoint.add(light4);
-      // var geometryD = new THREE.SphereBufferGeometry( 10, 8, 8 );
-      // var materialD = new THREE.MeshLambertMaterial({
-      //     color: 0x77aa77,
-      //     emissive: 0x77aa77,
-      // });
-      // var lightBallD = new THREE.Mesh(geometryD, materialD);
-      // lightBallD.position.set(-200, 200, 175);
-      // self.lightRotationPoint.add(lightBallD);
-      
-      // var light5 = new THREE.PointLight(0x777777, 1, 1400);
-      // light5.position.set(0, 1000, 0);
-      // self.scene.add(light5);
-      
       // Create base.
       self.createBase();
     
       // Setup the reflection
       self.setupReflectionCamera();
+      
+      // self.addGuides();
 
       // var pointLight = new THREE.PointLight(0xffffff, 1.5)
       // pointLight.position.set(0, 100, 90)
@@ -966,6 +911,9 @@ export default {
               break
             case 51: // 3
               self.changeCameraPos('angle')
+              break
+            case 82: // R
+              self.changeCameraPos('reset')
               break
             case 83: // S – take a screenshot
               self.takeScreenshot()
@@ -1365,7 +1313,7 @@ export default {
       var self = this
       // Build the controls.
       self.controls = new OrbitControls( self.camera, self.renderer.domElement )
-      // self.controls.enablePan = true
+      self.controls.enablePan = false
       self.controls.enableZoom = true 
       self.controls.maxDistance = 2000 
       self.controls.minDistance = 500
