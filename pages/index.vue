@@ -1,7 +1,8 @@
 <template lang="pug">
   .container.outer.black-bg
     #containerTypo(ref="container_typo")
-    HoverInfo(:type="'top-left'" :options="guiControls" :closer="container")
+    PageInfo
+    //- HoverInfo(:type="'top-left'" :options="guiControls" :closer="container")
     //- MenuOptions(:type="'top-left'" :options="guiControls" :closer="container")
     Controls(:settings="settings" :event="'click'" :revealed="true")
     QuickOptions(:type="'top-left'" :options="quickOptions")
@@ -48,8 +49,9 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js'
 import { PixelShader } from 'three/examples/jsm/shaders/PixelShader.js'
 
-import HoverInfo from '@/components/gui/HoverInfo'
-import MenuOptions from '@/components/gui/MenuOptions'
+// import HoverInfo from '@/components/gui/HoverInfo'
+// import MenuOptions from '@/components/gui/MenuOptions'
+import PageInfo from '@/components/gui/PageInfo'
 import Controls from '@/components/gui/Controls'
 import { map } from '@/assets/js/helpers'
 
@@ -293,11 +295,12 @@ export default {
     }
   },
   components: {
-    MenuOptions,
     Controls,
     QuickSearch,
     QuickOptions,
-    HoverInfo
+    PageInfo,
+    // MenuOptions,
+    // HoverInfo,
   },
   mounted () {
     var self = this
