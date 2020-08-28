@@ -1,16 +1,12 @@
-## Test server
-Deployed on https://bwd-demo-wf.netlify.app/
+## See Demo here
+https://3dtype-editor.netlify.app/
 
-# Run
+# Start project
+```
 npm run dev
+```
 
-Links
-Toon shading in Threejs
-https://threejs.org/examples/#webgl_materials_variations_toon
-
-Deploy on Netlify
-
-## Nuxt Deployment
+## Nuxt deployment via Netlify
 Make spa mode (not universal)
 
 * Make “New site from git”
@@ -19,11 +15,7 @@ Make spa mode (not universal)
     * Set Build Command to ‘npm run generate’
     * Set publish directory to ‘dist’
     * ‘Deploy site’ and ‘change site name’ / rename afterwards
-* push to master and it will deploy
-
-
-## TODO
-- use tilt on smartphones to control what cursor otherwise controls
+* push to master and it will deploy. Voila!
 
 ## REMEMBER
 remember: Making sure to delay Tweens on scroll otherwise two tweens will happen at the same time, causing jumping between states
