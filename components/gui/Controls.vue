@@ -1,7 +1,9 @@
 <template lang="pug">
   .wrapper
     .trigger(v-if="event === 'click'" @click="triggerMenu" name="settings-trigger")
+      .btn-icon
     .trigger(v-else-if="event === 'hover'" @mouseenter="triggerMenu" name="settings-trigger")
+      .btn-icon
     //- .trigger(v-on:${event}="triggerMenu" name="settings-trigger")
     .controls(ref="controls_master" v-bind:class="{ expanded: revealMenu }")
       //- .trigger.mini(@click="triggerMenu" name="settings-trigger")
@@ -15,7 +17,7 @@
         .slider-group(v-for="(sl, index) in row.stepsliders" :key="`stsl-${index}`")
           .labels
             p.text {{ sl.name }}
-            label.text {{ sl.value }}
+            //- label.text {{ sl.value }}
           .labels
             //- label.text.step-slider-label(v-for="(f, index) in sl.fonts" v-bind:class="f") {{ index }}
             .step-slider-label(v-for="(f, index) in sl.fonts" v-bind:class="f")
@@ -148,20 +150,30 @@ $s-thumb: 12px;
 }
 
 .trigger {
-  width: 24px;
-  height: 24px;
-  background: url(/icons/icon-settings-white.svg) no-repeat;
-  background-size: cover;
-  background-position: center;
+  width: 42px;
+  height: 42px;
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 8px;
+  right: 8px;
   z-index: 2;
   border-radius: 2px;
   transition: all 0.35s ease-in;
   cursor: pointer;
-  &:hover {
-    background: rgba(40,40,40,1) url(/icons/icon-settings-white.svg) no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .btn-icon {
+    pointer-events: none;
+    width: 24px;
+    height: 24px;
+    background: url(/icons/icon-settings-white.svg) no-repeat;
+    background-size: 24px;
+    background-position: center;
+  }
+  @media screen and (min-width: $breakp-md) { 
+    &:hover {
+      background: rgba(40,40,40,1);
+    }
   }
 }
 

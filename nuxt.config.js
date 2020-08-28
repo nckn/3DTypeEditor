@@ -16,8 +16,8 @@ module.exports = {
       // { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'stylesheet', type: 'image/x-icon', href: 'https://fonts.googleapis.com/css?family=Karla' }
-      // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'stylesheet', type: 'image/x-icon', href: 'https://fonts.googleapis.com/css?family=Karla' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
       // { src: 'plugins/p5.min.js' }

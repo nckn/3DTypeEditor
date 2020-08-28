@@ -259,7 +259,7 @@ export default {
             {name: 'Enable FXs', checked: true},
             {name: 'After image', checked: true},
             // {name: 'Enable Environment', checked: true},
-            {name: 'Mirror fonts', checked: true},
+            {name: 'Mirror text', checked: true},
             {name: 'Neon colors', checked: true},
           ]
         },
@@ -405,7 +405,7 @@ export default {
         self.dome.visible = false
         console.log(self.dome.visible)
       }
-      else if (ob.name === 'Mirror fonts') {
+      else if (ob.name === 'Mirror text') {
         // self.renderComposer = !self.renderComposer
         self.mirror = !self.mirror
         self.refreshText()

@@ -1,7 +1,8 @@
 <template lang="pug">
   .sideinfo-container
     .blocks.tl
-      label.text 3D Type Editor
+      p.text(style="margin-bottom: 0;") 3D Type Editor
+      label.text.grey-it.small-it v1.0
     .blocks.bl
       label.text.grey-it.small-it Made by #[a(href='https://www.konradstudio.com' target="_blank") Konrad Studio]
 </template>
@@ -56,7 +57,7 @@ $uni-margin: 16px;
     }
     &.tl {
       left: $uni-margin;
-      top: $uni-margin;
+      top: $uni-margin / 2;
     }
     &.bl {
       left: $uni-margin;
